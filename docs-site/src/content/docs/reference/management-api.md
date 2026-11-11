@@ -480,6 +480,9 @@ an earlier file prefix from 7-day, 30-day, or all-history totals. `managementUsa
 accepted for compatibility with bounded legacy readers, but changing it no longer expands or reduces
 the history summarized by this endpoint.
 
+Cold ledger scans yield between records so health checks and other local requests can continue
+while a large usage report is calculated. A single record is processed atomically.
+
 Pass both `since` and `until` to select an inclusive custom interval. Each accepts integer Unix
 epoch **milliseconds**, or a full ISO datetime with an explicit timezone. Invalid dates, negative
 or out-of-range values, reversed bounds, and a single bound are rejected. Custom bounds override
@@ -732,6 +735,12 @@ API page. The CLI drives these routes with `ocx api protocols`, `ocx api explain
 ([Protocol paths](/guides/protocol-paths/#rollout-switches)); see
 [API surfaces](/reference/configuration/server/#api-surfaces-apisurfaces) for how the Messages
 setting interacts with `claudeCode.enabled` across upgrades and downgrades.
+
+### Health during local credential updates
+
+When an asynchronous native-profile update waits for another local process to release the
+credential-publication lock, `/healthz` can still answer. The update keeps its existing 10-second
+lock-acquisition deadline and starts writing only after it owns the lock.
 
 ### Home identity and the served-by header
 
