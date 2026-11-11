@@ -36,15 +36,21 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git remote add upstream "https://github.com/${UPSTREAM_REPOSITORY}.git"
-          git fetch --no-tags upstream main
+          upstream_branch="$(git ls-remote --symref upstream HEAD | awk '$1 == "ref:" && $3 == "HEAD" {sub(/^refs\/heads\//, "", $2); print $2; exit}')"
+          if [[ -z "${upstream_branch}" ]]; then
+            echo "Could not determine upstream default branch." >&2
+            exit 1
+          fi
+          echo "Following upstream default branch: ${upstream_branch}"
+          git fetch --no-tags upstream "${upstream_branch}"
 
-          if git merge-base --is-ancestor upstream/main HEAD; then
+          if git merge-base --is-ancestor FETCH_HEAD HEAD; then
             echo 'Fork main already contains the latest upstream commit.'
             exit 0
           fi
 
           set +e
-          git merge --no-commit --no-ff upstream/main
+          git merge --no-commit --no-ff FETCH_HEAD
           merge_status=$?
           set -e
 
