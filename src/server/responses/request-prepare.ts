@@ -6,7 +6,9 @@ import { completeClaudeBridgePoolIdentity } from "../claude-bridge-pool-session"
 import type { HandleResponsesOptions, ResponsesRequestContext, ResponsesAdmissionState, ResponsesDispatchers } from "./core-options";
 import type { PolicyRequestEvidence } from "../../routing/evaluator";
 import type { RequestLogContext } from "../request-log";
-import { markProtocolEntry, protocolMarkFeatures } from "../../protocols/trace";
+import { addProtocolEntryReason, markProtocolEntry, protocolMarkFeatures } from "../../protocols/trace";
+import { nativeMessagesToolScopeDenial } from "../messages-native-scope";
+import { advisorServerToolDestination } from "../../adapters/anthropic/advisor-tool";
 import { isAntigravityRoute } from "../antigravity-direct-eligibility";
 import { capturePolicyRequestRoute, assertPolicyNormalizedRoute, recordPolicyPreparedDestination, policyCandidateRefusalResponse, MandatoryToolChoiceUnavailableError, mandatoryToolChoiceUnavailableResponse } from "./policy-request-scope";
 import {
@@ -41,7 +43,7 @@ import {
   sessionIdHeaderFromRequest,
   reasoningReplayConversationIdFromResponsesRequest,
 } from "../request-log-conversation";
-import { resolveContextPrincipal } from "../auth-cors";
+import { contextPrincipalIdOf, resolveContextPrincipal } from "../auth-cors";
 import { responseTurnMembership } from "./turn-membership";
 import { resolveSkillsSnapshotScopeKey, snapshotSkillsCatalogInBody } from "./skills-snapshot";
 import {
@@ -79,6 +81,7 @@ import { mapCodexAuthContextErrorToResponse } from "./codex-auth-error";
 import type { OcxParsedRequest } from "../../types";
 import { buildToolBridgeMaps } from "./collaboration";
 import { parseRequest } from "../../responses/parser";
+import { responsesHasFileImage, responsesHasInstructionImage } from "../../adapters/claude-cli/instruction-images";
 import { anthropicSessionKeyFromParts } from "../../oauth/anthropic-routing";
 import { configuredAnthropicInstance } from "../../providers/anthropic-instance";
 import { isTranslatorBudgetExceededError } from "../../lib/translator-budget";
@@ -249,6 +252,8 @@ export async function prepareResponsesRequest(
     }
     return decodeRequestErrorResponse(err, "responses");
   }
+  options.responsesInstructionImage ||= responsesHasInstructionImage(body);
+  options.responsesFileImage ||= responsesHasFileImage(body);
   // Remove display-only artifact paths before helpers, combo dispatch and upstream replay.
   const originalSelector = options.mainHardLockFallbackOverride?.sourceModel ?? options.compactionRoutingOverride?.sourceModel
     ?? (options.comboAttempt || options.policyFallbackCandidate || options.internalDecisionCall || options.memoryModelPhase
@@ -263,6 +268,7 @@ export async function prepareResponsesRequest(
     options.promptCacheKeyIsSharedCohort === true
       ? "system-derived"
       : options.promptCacheKeyIsSharedCohort === false ? "metadata-derived" : "caller",
+    contextPrincipalIdOf(options.admission),
   );
   if (!concreteSelection && !options.compactionRoutingOverride && inboundWire === "responses") {
     options.compactionRoutingOverride = applyCompactionRoutingOverride(body, req.headers, config, {
@@ -450,6 +456,8 @@ export async function prepareResponsesRequest(
   const previousResponseInputExpanded = options.comboReplaySnapshot?.previousResponseInputExpanded
     ?? (body !== originalBody
       && typeof (body as { previous_response_id?: unknown }).previous_response_id === "string");
+  options.responsesInstructionImage ||= responsesHasInstructionImage(body);
+  options.responsesFileImage ||= responsesHasFileImage(body);
 
   // Spawn-message compatibility (both directions): agent_message task payloads ride in
   // encrypted_content slots as plaintext. Rewrite them to input_text on the RAW body BEFORE
@@ -1490,6 +1498,15 @@ export async function prepareResponsesRequest(
   }
   if (!routeAllowedByScope(admissionScope, scopedDestination)) {
     return admissionModelDeniedResponse(projectAdmissionModelDeniedLog(new AdmissionModelDeniedError(inboundSelector, scopedDestination), logCtx));
+  }
+  // A typed Advisor runs its own model server-side on this provider (#8448). The native lane refuses
+  // a declaration outside the caller's scope; the Advisor is optional here, so it is not forwarded.
+  const serverTools = parsed._anthropicServerTools;
+  const scopedServerTools = serverTools?.filter(tool =>
+    !nativeMessagesToolScopeDenial(admissionScope, route.providerName, route.modelId, { tools: [tool] }));
+  if (serverTools && scopedServerTools && scopedServerTools.length !== serverTools.length) {
+    parsed._anthropicServerTools = scopedServerTools;
+    if (advisorServerToolDestination(route.provider)) addProtocolEntryReason(logCtx, "advisor-tool-outside-model-scope");
   }
   // Attribute local auth/cooldown failures to the public selector too; exact auth may fail before
   // the normal post-resolution provider label is assigned.

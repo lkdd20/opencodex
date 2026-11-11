@@ -99,6 +99,7 @@ import {
   isAllowedManagementOrigin,
   isApiAuthRequired,
   isLoopbackHostname,
+  markDashboardProxyPeer,
   markTrustedHubManagementRequest,
   jsonResponse,
   admissionFields,
@@ -220,10 +221,10 @@ import { withCallerSessionIdentity } from "../caller-session-identity";
 import { agentAssertionUnsupportedResponse, hasAgentAssertionAuthorization } from "../../lib/authorization-scheme";
 import { runTurnStateCallerScope } from "../turn-state-handles";
 
-export type ServerIngress = "public" | "unauthenticated-loopback" | "hub-management" | "claude-intercept" | "hub-link";
+export type ServerIngress = "public" | "unauthenticated-loopback" | "hub-management" | "claude-intercept" | "hub-link" | "local-control";
 
 export function trustedLoopbackForIngress(ingress: ServerIngress, hostname: string): boolean {
-  return ingress === "unauthenticated-loopback"
+  return ingress === "unauthenticated-loopback" || ingress === "local-control"
     || (ingress === "public" && isLoopbackHostname(hostname));
 }
 
@@ -330,9 +331,9 @@ export function createServeOptions(ctx: ServeOptionsContext) {
       const ingress = ingressForServer(requestServer);
       // Bind management-origin trust to the actual Bun listener object resolved above.
       // Neither Host nor any X-Forwarded-* header can manufacture this process-local mark.
-      if (ingress === "hub-management" && config.runtimeRole === "hub") {
-        markTrustedHubManagementRequest(req);
-      }
+      if (ingress === "hub-management" && config.runtimeRole === "hub") markTrustedHubManagementRequest(req);
+      // #8338: the kernel-observed peer, so the configured standalone dashboard proxy can be verified.
+      else if (ingress === "public" && config.dashboardTrustedProxy !== undefined) markDashboardProxyPeer(req, requestServer.requestIP(req)?.address);
       const requestUrl = codexCompatibleUrl(req.url);
       const linkPolicyView = ingress === "hub-link" ? linkPolicy() : undefined;
       // The unauthenticated loopback listener (#1102) serves a fixed allowlist and nothing
@@ -378,7 +379,7 @@ export function createServeOptions(ctx: ServeOptionsContext) {
       // Anthropic credentials, not opencodex admission tokens — so it takes the loopback view too.
       const policy: RequestPolicyView = ingress === "hub-link"
         ? linkPolicyView!
-        : ingress === "unauthenticated-loopback" || ingress === "claude-intercept"
+        : ingress === "unauthenticated-loopback" || ingress === "claude-intercept" || ingress === "local-control"
           ? loopbackPolicy()
           : config;
       // Codex runtime agent assertion_only (Authorization: AgentAssertion) is refused before
@@ -1270,6 +1271,7 @@ export function createServeOptions(ctx: ServeOptionsContext) {
                 config,
                 provider,
                 knownModelIdsForProvider(m.provider, provider, config),
+                m.provider,
               ).get(m.id)
             : undefined;
           const effectiveId = !isCombo && !fastModelId && effective
@@ -1866,6 +1868,7 @@ export function createServeOptions(ctx: ServeOptionsContext) {
               liveUpstreamProtocols: audio?.protocols,
               liveValidateFrame: audio?.validateFrame,
               liveMaxSessionMs: audio?.maxSessionMs,
+              liveFinalizationMs: audio?.finalizationMs,
               liveFinish: finish,
               liveAbortSignal: audioController?.signal,
               livePending: [],
