@@ -3,6 +3,7 @@ import { accountProbeCopy } from "./account-probe-copy";
 import { shellV2Copy } from "./shell-v2-copy";
 import { codexCliUpdateCopy } from "./codex-cli-update-copy";
 import { remoteLinkDiagnosticsCopy } from "./remote-link-diagnostics-copy";
+import { remoteLinkChildCopy } from "./remote-link-child-copy";
 import { gatewayClientsCopy } from "./gateway-clients-copy";
 import { modelsV2Copy } from "./v2-pages/models-copy";
 import { modelsOverallCopy } from "./models-overall-copy";
@@ -141,6 +142,7 @@ export const de: Record<TKey, string> = {
   ...shellV2Copy("de"),
   ...codexCliUpdateCopy("de"),
   ...remoteLinkDiagnosticsCopy("de"),
+  ...remoteLinkChildCopy("de"),
   ...gatewayClientsCopy("de"),
   ...modelsV2Copy("de"),
   ...modelsOverallCopy("de"),
@@ -2477,6 +2479,7 @@ export const de: Record<TKey, string> = {
   "codexAuth.creditNextBadge": "NÄCHSTE",
   "codexAuth.creditGranted": "Erhalten {date}",
   "codexAuth.creditExpires": "Läuft ab {date} ({days} Tage übrig)",
+  "codexAuth.creditNoExpiry": "Kein Ablaufdatum",
 
   // grok reset coupons (xAI account rows)
   "grokCoupon.badgeAria": "{count} Grok-Reset-Coupon(s)",
@@ -4395,6 +4398,13 @@ export const de: Record<TKey, string> = {
   "quotaSummary.perMonth": "pro Monat",
   "quotaSummary.remainingLimit": "Verbleibend / Limit",
   "quotaSummary.openAccounts": "Kontoverwaltung öffnen",
+  "quotaLive.title": "Kontingente live aktualisieren",
+  "quotaLive.hint": "Liest regelmäßig die im Proxy zwischengespeicherten Kontingente neu. Ein Anbieter wird erst nach Ablauf dieses Caches erneut abgefragt, nicht bei jeder Aktualisierung.",
+  "quotaLive.interval": "Alle",
+  "quotaLive.intervalAria": "Intervall der Live-Kontingentaktualisierung in Sekunden ({min}–{max})",
+  "quotaLive.intervalInc": "Intervall verlängern",
+  "quotaLive.intervalDec": "Intervall verkürzen",
+  "quotaLive.unit": "s",
   "pws.protocol.title": "Upstream-Protokoll",
   "pws.protocol.note": "Das API-Format, das opencodex mit diesem Anbieter spricht. Es schaltet keine Client-API ein oder aus; das steuert die API-Seite.",
   "pws.protocol.adapterLabel": "Upstream-Protokoll, das dieser Anbieter empfängt",

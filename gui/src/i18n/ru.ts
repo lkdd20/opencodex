@@ -3,6 +3,7 @@ import { accountProbeCopy } from "./account-probe-copy";
 import { shellV2Copy } from "./shell-v2-copy";
 import { codexCliUpdateCopy } from "./codex-cli-update-copy";
 import { remoteLinkDiagnosticsCopy } from "./remote-link-diagnostics-copy";
+import { remoteLinkChildCopy } from "./remote-link-child-copy";
 import { gatewayClientsCopy } from "./gateway-clients-copy";
 import { modelsV2Copy } from "./v2-pages/models-copy";
 import { modelsOverallCopy } from "./models-overall-copy";
@@ -140,6 +141,7 @@ export const ru: Record<TKey, string> = {
   ...shellV2Copy("ru"),
   ...codexCliUpdateCopy("ru"),
   ...remoteLinkDiagnosticsCopy("ru"),
+  ...remoteLinkChildCopy("ru"),
   ...gatewayClientsCopy("ru"),
   ...modelsV2Copy("ru"),
   ...modelsOverallCopy("ru"),
@@ -3051,6 +3053,7 @@ export const ru: Record<TKey, string> = {
   "codexAuth.creditNextBadge": "СЛЕД.",
   "codexAuth.creditGranted": "Начислен {date}",
   "codexAuth.creditExpires": "Истекает {date} (осталось {days} дн.)",
+  "codexAuth.creditNoExpiry": "Без срока действия",
 
   // grok reset coupons (xAI account rows)
   "grokCoupon.badgeAria": "Купонов сброса Grok: {count}",
@@ -4418,6 +4421,13 @@ export const ru: Record<TKey, string> = {
   "quotaSummary.perMonth": "в месяц",
   "quotaSummary.remainingLimit": "Осталось / лимит",
   "quotaSummary.openAccounts": "Открыть управление аккаунтами",
+  "quotaLive.title": "Обновление квот в реальном времени",
+  "quotaLive.hint": "Периодически перечитывает квоты из кэша прокси. Провайдер опрашивается снова только после истечения этого кэша, а не при каждом обновлении.",
+  "quotaLive.interval": "Каждые",
+  "quotaLive.intervalAria": "Интервал обновления квот в реальном времени, в секундах ({min}–{max})",
+  "quotaLive.intervalInc": "Увеличить интервал",
+  "quotaLive.intervalDec": "Уменьшить интервал",
+  "quotaLive.unit": "с",
   "pws.protocol.title": "Протокол к провайдеру",
   "pws.protocol.note": "Формат API, которым opencodex обращается к этому провайдеру. Он не включает и не выключает клиентские API — это настраивается на странице API.",
   "pws.protocol.adapterLabel": "Протокол, который получает этот провайдер",

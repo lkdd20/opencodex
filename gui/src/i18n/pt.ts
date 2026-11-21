@@ -3,6 +3,7 @@ import { accountProbeCopy } from "./account-probe-copy";
 import { shellV2Copy } from "./shell-v2-copy";
 import { codexCliUpdateCopy } from "./codex-cli-update-copy";
 import { remoteLinkDiagnosticsCopy } from "./remote-link-diagnostics-copy";
+import { remoteLinkChildCopy } from "./remote-link-child-copy";
 import { gatewayClientsCopy } from "./gateway-clients-copy";
 import { modelsV2Copy } from "./v2-pages/models-copy";
 import { modelsOverallCopy } from "./models-overall-copy";
@@ -142,6 +143,7 @@ export const pt: Record<TKey, string> = {
   ...shellV2Copy("pt"),
   ...codexCliUpdateCopy("pt"),
   ...remoteLinkDiagnosticsCopy("pt"),
+  ...remoteLinkChildCopy("pt"),
   ...gatewayClientsCopy("pt"),
   ...modelsV2Copy("pt"),
   ...modelsOverallCopy("pt"),
@@ -3105,6 +3107,7 @@ export const pt: Record<TKey, string> = {
   "codexAuth.creditNextBadge": "PRÓXIMO",
   "codexAuth.creditGranted": "Concedido em {date}",
   "codexAuth.creditExpires": "Expira em {date} ({days}d restantes)",
+  "codexAuth.creditNoExpiry": "Sem vencimento",
   "grokCoupon.badgeAria": "{count} cupom(ns) de reset do Grok",
   "grokCoupon.badgeErrorAria": "Não foi possível ler os cupons de reset do Grok",
   "grokCoupon.title": "Cupons de reset do Grok",
@@ -4390,6 +4393,13 @@ export const pt: Record<TKey, string> = {
   "quotaSummary.perMonth": "por mês",
   "quotaSummary.remainingLimit": "Restante / limite",
   "quotaSummary.openAccounts": "Abrir gerenciamento de contas",
+  "quotaLive.title": "Atualização de cotas em tempo real",
+  "quotaLive.hint": "Relê periodicamente as cotas em cache no proxy. Um provedor só é consultado de novo depois que esse cache expira, não a cada atualização.",
+  "quotaLive.interval": "A cada",
+  "quotaLive.intervalAria": "Intervalo da atualização de cotas em tempo real, em segundos ({min}–{max})",
+  "quotaLive.intervalInc": "Aumentar intervalo",
+  "quotaLive.intervalDec": "Diminuir intervalo",
+  "quotaLive.unit": "s",
   "pws.protocol.title": "Wire upstream",
   "pws.protocol.note": "O formato de API que o opencodex usa para falar com este provedor. Ele não ativa nem desativa nenhuma API de cliente; a página de API controla isso.",
   "pws.protocol.adapterLabel": "Wire upstream que este provedor recebe",

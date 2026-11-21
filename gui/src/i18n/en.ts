@@ -3,6 +3,7 @@ import { accountProbeCopy } from "./account-probe-copy";
 import { shellV2Copy } from "./shell-v2-copy";
 import { codexCliUpdateCopy } from "./codex-cli-update-copy";
 import { remoteLinkDiagnosticsCopy } from "./remote-link-diagnostics-copy";
+import { remoteLinkChildCopy } from "./remote-link-child-copy";
 import { gatewayClientsCopy } from "./gateway-clients-copy";
 import { modelsV2Copy } from "./v2-pages/models-copy";
 import { modelsOverallCopy } from "./models-overall-copy";
@@ -142,6 +143,7 @@ export const en = {
   ...shellV2Copy("en"),
   ...codexCliUpdateCopy("en"),
   ...remoteLinkDiagnosticsCopy("en"),
+  ...remoteLinkChildCopy("en"),
   ...gatewayClientsCopy("en"),
   ...modelsV2Copy("en"),
   ...modelsOverallCopy("en"),
@@ -3144,6 +3146,7 @@ export const en = {
   "codexAuth.creditNextBadge": "NEXT",
   "codexAuth.creditGranted": "Granted {date}",
   "codexAuth.creditExpires": "Expires {date} ({days}d left)",
+  "codexAuth.creditNoExpiry": "No expiry",
 
   // grok reset coupons (xAI account rows)
   "grokCoupon.badgeAria": "{count} Grok reset coupon(s)",
@@ -4429,6 +4432,13 @@ export const en = {
   "quotaSummary.perMonth": "per month",
   "quotaSummary.remainingLimit": "Remaining / limit",
   "quotaSummary.openAccounts": "Open account management",
+  "quotaLive.title": "Live quota updates",
+  "quotaLive.hint": "Re-reads the proxy's cached quota on a timer. A provider is asked again only after that cache expires, not on every update.",
+  "quotaLive.interval": "Every",
+  "quotaLive.intervalAria": "Live quota update interval in seconds ({min}–{max})",
+  "quotaLive.intervalInc": "Increase interval",
+  "quotaLive.intervalDec": "Decrease interval",
+  "quotaLive.unit": "s",
   "pws.protocol.title": "Upstream wire",
   "pws.protocol.note": "The API format opencodex speaks to this provider. It does not turn any client API on or off; the API page controls those.",
   "pws.protocol.adapterLabel": "Upstream wire this provider receives",
