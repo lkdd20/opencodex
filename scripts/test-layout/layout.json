@@ -1164,7 +1164,7 @@
     "lab-public-wire-contract.test.ts": "lab",
     "lab-read-filter-validation.test.ts": "lab",
     "lab-read-surfaces.test.ts": "lab",
-    "launchd-port-fallback.test.ts": "service", "launchd-repair.test.ts": "service",
+    "launchd-port-fallback.test.ts": "service", "launchd-repair.test.ts": "service", "foreground-start-service-advisory.test.ts": "service",
     "legacy-shell-compat.test.ts": "responses",
     "live-call-bindings.test.ts": "server", "live-native-calls.test.ts": "server",
     "live-service-manager-guard.test.ts": "service",
@@ -1861,7 +1861,7 @@
     "upstream-transient-retry.test.ts": "providers",
     "url-normalization.test.ts": "config",
     "usage-aggregate-cache.test.ts": "usage",
-    "usage-anthropic-fast-pricing.test.ts": "usage",
+    "usage-anthropic-fast-pricing.test.ts": "usage", "usage-ultrafast-pricing.test.ts": "usage",
     "usage-cursor-fast-pricing.test.ts": "usage",
     "usage-attempt-delivery.test.ts": "usage",
     "usage-cost.test.ts": "usage", "usage-haiku-5-5-pricing.test.ts": "usage", "usage-fable-5-2-pricing.test.ts": "usage", "gpt61-terra-pricing.test.ts": "usage",
@@ -1994,6 +1994,6 @@
     "responses-claude-preflight-lease.test.ts": "responses",
     "injection-routing-drift.test.ts": "codex-integration", "injection-routing-healer.test.ts": "codex-integration",
     "injection-routing-heal-apply.test.ts": "codex-integration", "cli-start-routing-heal-wiring.test.ts": "cli",
-    "cli-status-codex-routing-drift.test.ts": "cli", "advisor-settings.test.ts": "advisor", "advisor-context.test.ts": "advisor", "advisor-state.test.ts": "advisor", "advisor-guard.test.ts": "advisor", "advisor-consult.test.ts": "advisor", "advisor-plan.test.ts": "advisor", "advisor-responses-wiring.test.ts": "advisor", "advisor-routes.test.ts": "server", "advisor-internal-authority.test.ts": "advisor", "advisor-core-boundary.test.ts": "advisor", "advisor-continuation-limit.test.ts": "advisor", "advisor-authority-transport.test.ts": "advisor", "advisor-evidence.test.ts": "advisor", "advisor-budget.test.ts": "advisor", "advisor-adaptive.test.ts": "advisor", "advisor-scope-transport.test.ts": "advisor", "local-credentials.test.ts": "cli", "local-credential-fence.test.ts": "config", "local-credential-generation.test.ts": "config", "link-websocket-upgrade.test.ts": "server", "link-websocket-gate.test.ts": "server", "link-websocket-drain.test.ts": "server", "link-websocket-pump.test.ts": "server", "link-websocket-rss.test.ts": "e2e-style", "link-websocket-holds.test.ts": "server", "link-websocket-traffic.test.ts": "server", "link-ws-activity-holds.test.ts": "clients", "link-websocket-fingerprints.test.ts": "server", "link-activity-holds-routes.test.ts": "server", "link-ws-activity-holds-operator.test.ts": "clients", "cli-link-activity.test.ts": "cli", "link-child-ops-ignore-activity.test.ts": "clients", "link-request-log-fields.test.ts": "server", "link-websocket-transport-status.test.ts": "server", "link-websocket-release-gate.test.ts": "e2e-style", "link-websocket-rss-child.test.ts": "e2e-style", "link-gate-codex-binary.test.ts": "e2e-style", "link-websocket-child-gate.test.ts": "e2e-style", "link-websocket-child-restart.test.ts": "e2e-style"
+    "cli-status-codex-routing-drift.test.ts": "cli", "advisor-settings.test.ts": "advisor", "advisor-context.test.ts": "advisor", "advisor-state.test.ts": "advisor", "advisor-guard.test.ts": "advisor", "advisor-consult.test.ts": "advisor", "advisor-plan.test.ts": "advisor", "advisor-responses-wiring.test.ts": "advisor", "advisor-routes.test.ts": "server", "advisor-internal-authority.test.ts": "advisor", "advisor-core-boundary.test.ts": "advisor", "advisor-continuation-limit.test.ts": "advisor", "advisor-authority-transport.test.ts": "advisor", "advisor-evidence.test.ts": "advisor", "advisor-budget.test.ts": "advisor", "advisor-adaptive.test.ts": "advisor", "advisor-scope-transport.test.ts": "advisor", "advisor-client-mcp-safety.test.ts": "advisor", "local-credentials.test.ts": "cli", "local-credential-fence.test.ts": "config", "local-credential-generation.test.ts": "config", "link-websocket-upgrade.test.ts": "server", "link-websocket-gate.test.ts": "server", "link-websocket-drain.test.ts": "server", "link-websocket-pump.test.ts": "server", "link-websocket-rss.test.ts": "e2e-style", "link-websocket-holds.test.ts": "server", "link-websocket-traffic.test.ts": "server", "link-ws-activity-holds.test.ts": "clients", "link-websocket-fingerprints.test.ts": "server", "link-activity-holds-routes.test.ts": "server", "link-ws-activity-holds-operator.test.ts": "clients", "cli-link-activity.test.ts": "cli", "link-child-ops-ignore-activity.test.ts": "clients", "link-request-log-fields.test.ts": "server", "link-websocket-transport-status.test.ts": "server", "link-websocket-release-gate.test.ts": "e2e-style", "link-websocket-rss-child.test.ts": "e2e-style", "link-gate-codex-binary.test.ts": "e2e-style", "link-websocket-child-gate.test.ts": "e2e-style", "link-websocket-child-restart.test.ts": "e2e-style"
   }
 }

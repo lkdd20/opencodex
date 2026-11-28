@@ -86,6 +86,7 @@
     "server-combo-stream-send-contract.test.ts": "server",
     "server-combo-stream-required-tool.test.ts": "server", "combo-required-tool-stream-preflight.test.ts": "routing",
     "responses-anthropic-compaction-prefix.test.ts": "responses",
+    "responses-anthropic-compaction-checkpoint-prefix.test.ts": "responses",
     "service-proxy-env.test.ts": "service",
     "codex-cli-update-windows-apply.test.ts": "codex-integration", "codex-cli-update-windows-apply-install.test.ts": "codex-integration", "codex-cli-update-windows-apply-outcomes.test.ts": "codex-integration", "codex-cli-update-windows-apply-shared.test.ts": "codex-integration",
     "codex-cli-update-windows-recovery.test.ts": "codex-integration",
@@ -182,6 +183,7 @@
     "combo-stream-prelude-guards.test.ts": "routing",
     "combo-cooldown-persistence.test.ts": "routing",
     "combo-unoffered-tool-refusal.test.ts": "routing",
+    "combo-undeclared-tool-guard-refusal.test.ts": "routing",
   "anthropic-revoked-token.test.ts": "adapters/anthropic",
   "messages-revoked-token.test.ts": "claude-integration",
   "anthropic-revoked-token-continuation.test.ts": "adapters/anthropic",
@@ -1105,7 +1107,7 @@
   "lab-public-route-registry.test.ts": "lab", "lab-public-security-regressions.test.ts": "lab",
   "lab-public-surfaces.test.ts": "lab", "lab-public-wire-contract.test.ts": "lab",
   "lab-read-filter-validation.test.ts": "lab", "lab-read-surfaces.test.ts": "lab",
-  "launchd-port-fallback.test.ts": "service", "launchd-repair.test.ts": "service", "legacy-shell-compat.test.ts": "responses",
+  "launchd-port-fallback.test.ts": "service", "launchd-repair.test.ts": "service", "foreground-start-service-advisory.test.ts": "service", "legacy-shell-compat.test.ts": "responses",
   "live-call-bindings.test.ts": "server", "live-native-calls.test.ts": "server",
   "usage-telemetry-profile-contract.test.ts": "usage", "usage-telemetry-profile-sync.test.ts": "usage", "usage-telemetry-profile-collector.test.ts": "usage", "usage-telemetry-profile-lifecycle.test.ts": "usage", "server-telemetry-profile-routes.test.ts": "server", "cli-telemetry-profile.test.ts": "cli", "docs-telemetry-leaderboard.test.ts": "ci-workflows",
   "live-service-manager-guard.test.ts": "service",
@@ -1601,6 +1603,7 @@
   "upstream-retry-zero-output.test.ts": "lib", "upstream-transient-retry.test.ts": "providers",
   "url-normalization.test.ts": "config", "usage-aggregate-cache.test.ts": "usage",
   "usage-anthropic-fast-pricing.test.ts": "usage", "usage-cursor-fast-pricing.test.ts": "usage",
+  "usage-ultrafast-pricing.test.ts": "usage",
   "usage-attempt-delivery.test.ts": "usage", "usage-client-attribution.test.ts": "usage", "usage-cost.test.ts": "usage", "usage-cost-antigravity-gemini4.test.ts": "usage", "usage-haiku-5-5-pricing.test.ts": "usage", "usage-fable-5-2-pricing.test.ts": "usage", "gpt61-terra-pricing.test.ts": "usage",
   "usage-credit-ledger-regressions.test.ts": "usage",
   "usage-provider-credit-price.test.ts": "usage",
@@ -1758,7 +1761,7 @@
   "opaque-proxy-tunnel-protocol.test.ts": "lib",
   "server-desktop-compatibility-startup.test.ts": "server",
   "codex-set-prompt.test.ts": "gui", "codex-prompt-writes.test.ts": "codex-integration", "codex-prompt-scalar-scope.test.ts": "codex-integration",
-  "advisor-settings.test.ts": "advisor", "advisor-context.test.ts": "advisor", "advisor-state.test.ts": "advisor", "advisor-guard.test.ts": "advisor", "advisor-consult.test.ts": "advisor", "advisor-plan.test.ts": "advisor", "advisor-responses-wiring.test.ts": "advisor", "advisor-routes.test.ts": "server", "advisor-internal-authority.test.ts": "advisor", "advisor-core-boundary.test.ts": "advisor", "advisor-continuation-limit.test.ts": "advisor", "advisor-authority-transport.test.ts": "advisor", "advisor-evidence.test.ts": "advisor", "advisor-budget.test.ts": "advisor", "advisor-adaptive.test.ts": "advisor", "advisor-scope-transport.test.ts": "advisor"
+  "advisor-settings.test.ts": "advisor", "advisor-context.test.ts": "advisor", "advisor-state.test.ts": "advisor", "advisor-guard.test.ts": "advisor", "advisor-consult.test.ts": "advisor", "advisor-plan.test.ts": "advisor", "advisor-responses-wiring.test.ts": "advisor", "advisor-routes.test.ts": "server", "advisor-internal-authority.test.ts": "advisor", "advisor-core-boundary.test.ts": "advisor", "advisor-continuation-limit.test.ts": "advisor", "advisor-authority-transport.test.ts": "advisor", "advisor-evidence.test.ts": "advisor", "advisor-budget.test.ts": "advisor", "advisor-adaptive.test.ts": "advisor", "advisor-scope-transport.test.ts": "advisor", "advisor-client-mcp-safety.test.ts": "advisor"
   ,"link-codex-settings-digest.test.ts": "clients", "link-apply-record.test.ts": "clients", "client-runtime-restart.test.ts": "clients", "link-parity-reporter.test.ts": "clients",
   "link-apply-restart.test.ts": "cli", "disconnect-runtime.test.ts": "cli", "link-child-parity.test.ts": "server", "restart-replacement-not-ready.test.ts": "server",
   "hermes-profiles.test.ts": "clients", "hermes-profile-routes.test.ts": "clients"

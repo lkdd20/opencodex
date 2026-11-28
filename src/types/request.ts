@@ -93,6 +93,12 @@ export interface OcxParsedRequest {
    */
   _summaryWebSearch?: Record<string, unknown>;
   /**
+   * Compaction request after a decoded checkpoint. The parser withholds the continuation note from
+   * every summary; a prefix-preserving route adds it back where the ordinary request carries it,
+   * so the summary keeps that request's system prompt (#7307).
+   */
+  _summaryCheckpointNote?: boolean;
+  /**
    * Completed server-tool exchanges from the Claude client's history, keyed by the block that
    * followed them (`call:<tool_use id>` / `text:<text>`). Same audience as `_anthropicServerTools`.
    */
@@ -244,6 +250,8 @@ export interface OcxParsedRequest {
   _codexNewHistory?: boolean;
   /** This turn's per-message effort bookkeeping (src/adapters/anthropic/per-message-effort.ts). */
   _perMessageEffort?: PerMessageEffortTurn;
+  /** Internal-only Chat session fallback for advisor adaptive ledger scoping (never sent upstream). */
+  _advisorSessionIdentity?: string;
   /**
    * Core-owned registration slot for the optional advisor subsystem (src/advisor). Set per request
    * by the sidecar planner, never at module load: the core Responses path only sees this
